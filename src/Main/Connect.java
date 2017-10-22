@@ -28,7 +28,7 @@ public class Connect
         
     try
     {
-        int assinged_port = session_target.setPortForwardingL(0, hostC, 22);
+        int assinged_port = session_ts.setPortForwardingL(0, hostC , 22);
         System.out.println("portforwarding: "+ "localhost:"+assinged_port+" -> "+hostC +":"+22);
         session_target = jsch.getSession(user, "127.0.0.1", assinged_port);
         session_target.setPassword(pass);
@@ -40,7 +40,7 @@ public class Connect
         session_target.connect();
         System.out.println("The session has been established to "+ user+"@"+hostC);
     }
-    catch (Exception ex2){}
+    catch (Exception ex2){System.out.println(ex2);}
     
     return session_target;
     
