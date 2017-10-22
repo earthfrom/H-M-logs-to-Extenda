@@ -20,16 +20,20 @@ public class GetPeripherlas
     Thread th[] = new Thread[5];
     
     
-    int k = 0;
-    byte[] buffer = new byte[1024];
+   
+   
     BufferedInputStream bis;
     String lff="peripheral.log";
     
-    void downloadPeripherlas (Session session,DatePicker date,File folder) throws FileNotFoundException, IOException
     
+    
+    
+    int k = 0;
+    
+    void downloadPeripherlas (Session session,DatePicker date,File folder) throws FileNotFoundException, IOException
     {
         
-   
+    
         //PREPARING WORKING PATH'S
         String peripheralfile= System.getProperty("user.home") + "/Desktop/" + folder.getName() + "/" + "peripheral.log" ;
         String remotePath = "/opt/extenda/posclient/logs/";
@@ -43,35 +47,25 @@ public class GetPeripherlas
         channelSftp.cd(remotePath); 
         }
         catch (Exception ex) {}
+        byte[] buffer = new byte[1024];
+        
+ 
+        
+for (k=0;k<5;k++)
+{
+        
+        arrtask[k] = new Task <Void>() 
+        {  
+           @Override protected Void call() throws Exception 
+            { 
+  
+         
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-for (k=0;k<=5;k++)
-{   
-    arrtask[k] = new Task <Void>() 
-    {  
-    @Override protected Void call() throws Exception 
-    { 
-               
-                
-
-   
 
     try 
     {
         if (k==0){bis = new BufferedInputStream(channelSftp.get("peripheral.log"));}
-        if (k!=0){ lff = "peripheral.log." + String.valueOf(k);}
+        else { lff = "peripheral.log." + String.valueOf(k);}
         
         System.out.print("Looking for ");
         System.out.println(lff);
@@ -99,23 +93,29 @@ for (k=0;k<=5;k++)
         os.close();
 
     }
-    catch (Exception e) {System.out.println("File not found");}
+    catch (Exception e) {System.out.println(e);}
     
-    return null;
-        }
+    
+    
+    
+                          GetEPSlog gel = new GetEPSlog();
+                gel.downloadPoslog(session, date, folder);
+                return null;
+            }
        };
         
-      
-         th[k] = new Thread(arrtask[k]);
-         th[k].setDaemon(true);
-         th[k].start();
-          
+}//end loop
         
         
         
-        
-        
-        
-    }
+     
+   
+
+         
+             
+    
+
+
+
     }
 }

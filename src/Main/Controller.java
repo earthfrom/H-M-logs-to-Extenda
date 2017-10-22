@@ -35,7 +35,9 @@ public class Controller
     {
        final  File folder = new File(System.getProperty("user.home") + "/Desktop/" + target.getText());
        
-       
+       //cash loging and password 
+       BlowFish bf = new BlowFish();
+       try { bf.encrypt(fjlogin.getText(), fjpass.getText());} catch (Exception ex) {}
        
        //make a folder
        CreateFolder cf = new CreateFolder();
@@ -77,7 +79,8 @@ public class Controller
        };
         
         
-        
+     
+  
      
      
         
@@ -90,12 +93,21 @@ public class Controller
          th2.start();
        
        
-       
-          //five threads will be created inside this class
+       /* BETA NOT WORKING YET
+         
+         
+        //five threads will be created inside this class
         GetPeripherlas gp = new GetPeripherlas();
         gp.downloadPeripherlas(session, date, folder);
+        for (int j=0;j<5;j++)
+           {
+              System.out.println("Staring thread "+ j);
+               gp.th[j] = new Thread(gp.arrtask[j]);
+               gp.th[j].setDaemon(true);
+               gp.th[j].start();
+           }
         
-       
+       */
        
     
     }
