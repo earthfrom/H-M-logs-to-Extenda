@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import com.jcraft.jsch.*;
+import java.util.Scanner;
 import javafx.application.Platform;
 import javafx.concurrent.*;
 import javafx.scene.text.Text;
@@ -26,19 +27,26 @@ public class Controller
     String lff;
     String hostB = "10.239.255.20";
 
-    public Controller() {
-        
-    }
+   
 
     //Actions after user presses Download 
     @FXML protected void go(ActionEvent event) throws IOException
     {
        final  File folder = new File(System.getProperty("user.home") + "/Desktop/" + target.getText());
        
-       //cash loging and password 
-       BlowFish bf = new BlowFish();
-       try { bf.encrypt(fjlogin.getText(), fjpass.getText());} catch (Exception ex) {}
+       //copy login and password to file
+       Cache ch = new Cache();
+       ch.toFile(fjlogin.getText(), fjpass.getText());
        
+       
+       //get login and password from file and insert them into TextFields
+       String[] logpas = ch.fromFile();
+       System.out.println(logpas[0]+"  "+logpas[1]);
+       fjlogin.setText(logpas[0]);
+       fjpass.setText(logpas[1]);
+       
+       
+    
        //make a folder
        CreateFolder cf = new CreateFolder();
        String path =  cf.createfolder(target.getText());
@@ -52,8 +60,6 @@ public class Controller
        Connect c = new Connect();
        Session session = c.connect(fjlogin.getText(), fjpass.getText(), hostB ,hostC);
      
-       
-       
         //thread1 download pos.log
         Task task1;
         task1 = new Task <Void>() 
@@ -66,7 +72,6 @@ public class Controller
             }
         };
         
-        
         //thread2 download eps.log
         Task task2 = new Task <Void>() 
         {  
@@ -77,12 +82,6 @@ public class Controller
                 return null;
             }
        };
-        
-        
-     
-  
-     
-     
         
 
          Thread th1 = new Thread(task1);
