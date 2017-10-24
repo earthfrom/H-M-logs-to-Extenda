@@ -27,16 +27,21 @@ public class Controller
     String lff;
     String hostB = "10.239.255.20";
 
-   
 
     //Actions after user presses Download 
     @FXML protected void go(ActionEvent event) throws IOException
     {
+      
        final  File folder = new File(System.getProperty("user.home") + "/Desktop/" + target.getText());
+
+       
        
        //copy login and password to file
        Cache ch = new Cache();
        ch.toFile(fjlogin.getText(), fjpass.getText());
+ 
+     
+
        
        
        //get login and password from file and insert them into TextFields

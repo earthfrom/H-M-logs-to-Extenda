@@ -26,14 +26,21 @@ public class Cache
           writer.close();
       }
 
-      String[]  fromFile() throws FileNotFoundException, IOException
-      {
-          FileReader fr = new FileReader( System.getProperty("user.home") + "//credentials.txt" );
-          BufferedReader br = new BufferedReader(fr);
+      String[]  fromFile() throws IOException 
+      {  
+          FileReader fr=null;
+          BufferedReader br=null;
+          try
+          {
+          fr = new FileReader( System.getProperty("user.home") + "//credentials.txt" );
+          br = new BufferedReader(fr);
+          }
+          catch (Exception ex) {}
           String[] logpas = new String[2];
           
           logpas[0] = br.readLine();
           logpas[1] = br.readLine();
+          
           return logpas;
       }
      
