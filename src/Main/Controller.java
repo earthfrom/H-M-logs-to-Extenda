@@ -1,16 +1,11 @@
 package Main;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import java.io.*;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import com.jcraft.jsch.*;
-import java.util.Scanner;
-import javafx.application.Platform;
 import javafx.concurrent.*;
 import javafx.scene.text.Text;
 
